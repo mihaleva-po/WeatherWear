@@ -8,6 +8,9 @@ node_modules/
 dist/
 web-build/
 
+# Ключи
+src/constants
+
 # Native
 *.orig.*
 *.jks

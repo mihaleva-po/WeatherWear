@@ -12,7 +12,7 @@
       "backgroundColor": "#ffffff"
     },
     "assetBundlePatterns": [
-      "**/*"
+      "./assets/cer/russian_trusted_root_ca.cer"
     ],
     "ios": {
       "supportsTablet": true
@@ -21,7 +21,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.polina621.wesomeroject"
     },
     "web": {
       "favicon": "./assets/favicon.png"
