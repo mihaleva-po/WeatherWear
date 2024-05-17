@@ -1,7 +1,6 @@
-import {View, StyleSheet, ScrollView} from "react-native";
+import {View, StyleSheet, ScrollView, ActivityIndicator, Text} from "react-native";
 import React from "react";
 import Card from "./Card";
-import Loading from "./loading";
 
 
 const BlockClothes = ({listClothes}) => {
@@ -15,7 +14,6 @@ const BlockClothes = ({listClothes}) => {
                     listClothes
                         ?
 
-                        // Может убрать скролл
                         <ScrollView style={styles.listCards} showsVerticalScrollIndicator={false}>
                             <View style={styles.cardsContainer}>
                                 {listClothes.map((thing, i) => (
@@ -25,8 +23,8 @@ const BlockClothes = ({listClothes}) => {
                         </ScrollView>
 
                         :
-                        <View style={{marginTop: 120}}>
-                            <Loading/>
+                        <View style={{marginTop: 120, height: 240}}>
+                            <ActivityIndicator size={'large'}/>
                         </View>
                 }
             </View>
@@ -48,8 +46,7 @@ const styles = StyleSheet.create({
 
     listCards: {
         alignSelf: 'center',
-        minHeight: 200, // используется при отображении загрузки
-        maxHeight: 360,
+        height: 360
     },
     cardsContainer: {
         flexDirection: 'row', // Расположение в строку

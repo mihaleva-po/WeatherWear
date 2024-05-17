@@ -32,13 +32,12 @@ export const getAnswer = async (token, prompt) => {
         data: data
     };
 
-// 3 попытки или react query
-    try {
-        const response = await axios(config);
-        return JSON.stringify(response.data);
-
-    } catch (err) {
-        console.log(err);
-        return null;
+    for (let i = 0; i < 3; i++) {
+        try {
+            const response = await axios(config);
+            return JSON.stringify(response.data);
+        } catch (err) {
+            console.log(err);
+        }
     }
 }

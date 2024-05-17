@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { StyleSheet } from 'react-native';
 import { SelectCountry } from 'react-native-element-dropdown';
 import {getData, storeData} from "../../asyncStorage/asyncStorage";
+import {useSetting} from "../../context/SettingContext";
 
 const local_data = [
     {
@@ -24,7 +25,23 @@ const local_data = [
 
 const SelectAge = _props => {
 
-    const [currentAge, changeAge] = useState(getData('age') ?? '18-35');
+    const {changeSetting } = useSetting();
+    const [currentAge, changeAge] = useState('18-35');
+
+    useEffect(() => {
+        (async () => {
+            const age = await getData('age');
+            changeAge(age ?? '18-35');
+        })();
+    }, []);
+
+    const handleChange = (value) => {
+        changeSetting({ age: value });
+        changeAge(value);
+        (async () => {
+            await storeData('age', value);
+        })();
+    };
 
     return (
         <SelectCountry
@@ -37,13 +54,10 @@ const SelectAge = _props => {
             valueField="value"
             labelField="value"
             imageField="image"
-            placeholder="Выберите ваш возраст.."
+            placeholder="Выберите возраст.."
             searchPlaceholder="Search..."
             onChange={e => {
-                changeAge(e.value);
-                (async () => {
-                    await storeData('age', e.value);
-                })();
+                handleChange(e.value);
             }}
         />
     );

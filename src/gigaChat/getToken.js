@@ -25,12 +25,13 @@ export const getToken = async () => {
         data: data
     };
 
-    // 3 попытки или React Query
-    try {
-        const response = await axios(config);
-        return JSON.stringify(response.data);
-    } catch (err) {
-        console.log(err);
-        return null;
+    for (let i = 0; i < 3; i++) {
+        try {
+            const response = await axios(config);
+            return JSON.stringify(response.data);
+        } catch (err) {
+            console.log(err);
+        }
     }
+
 }

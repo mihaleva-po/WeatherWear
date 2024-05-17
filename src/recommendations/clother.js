@@ -46,14 +46,14 @@ export const listClothes = [
         name: 'Сапоги',
         temp: {
             min: 5,
-            max: 100, // Infinity
+            max: 12,
         },
     },
     {
         name: 'Лоферы',
         temp: {
             min: 17,
-            max: 100, // Infinity
+            max: 100,
         },
     },
 
@@ -63,14 +63,14 @@ export const listClothes = [
         name: 'Очки',
         temp: {
             min: -100,
-            max: 100, // Infinity
+            max: 100,
         },
     },
     {
         name: 'Зонтик',
         temp: {
             min: -100,
-            max: 100, // Infinity
+            max: 100,
         },
     },
     {
@@ -83,7 +83,7 @@ export const listClothes = [
     {
         name: 'Варежки',
         temp: {
-            min: -100, // Infinity
+            min: -100,
             max: -6,
         },
     },
@@ -182,7 +182,7 @@ export const listClothes = [
         name: 'Куртка',
         temp: {
             min: 0,
-            max: 20,
+            max: 10,
         },
     },
     {
@@ -266,7 +266,7 @@ export const listClothes = [
         name: 'Свитер',
         temp: {
             min: -100,
-            max: 100,
+            max: 10,
         },
     },
     {

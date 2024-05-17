@@ -1,16 +1,32 @@
 import {StyleSheet, Text, View} from "react-native";
 import React from "react";
+import {useSetting} from "../context/SettingContext";
 
 
 const Forecast = ({cityName, temp, description}) => {
+
+    const { currentSetting, changeSetting } = useSetting();
+
     return (
         <View>
             <Text style={styles.city}>
                 {cityName}
             </Text>
 
-            <Text style={styles.degree}>
-                {Math.round(temp)}&#176;</Text>
+            <View>
+                {
+                    (currentSetting.unit === 'Стандартная (кельвин)')
+                        ?
+                        <Text style={styles.degree}>{Math.round(temp) + 273.15} K</Text>
+                        :
+                        (currentSetting.unit === 'Имперская (фаренгейт)')
+                            ?
+                            <Text style={styles.degree}>{Math.round(temp) * 9/5 + 32} ℉</Text>
+                            :
+                            <Text style={styles.degree}>{Math.round(temp)} ℃</Text>
+                }
+            </View>
+
             <Text style={styles.description}>
                 {description}
             </Text>

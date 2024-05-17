@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet} from 'react-native';
 import {SelectCountry} from 'react-native-element-dropdown';
 import {getData, storeData} from "../../asyncStorage/asyncStorage";
+import {useSetting} from "../../context/SettingContext";
 
 const local_data = [
     {
@@ -11,12 +12,29 @@ const local_data = [
         value: 'Метрическая (цельсий)',
     },
     {
-        value: 'Имперская (Фаренгейт)',
+        value: 'Имперская (фаренгейт)',
     },
 ];
 
 const SelectUnits = _props => {
-    const [units, setUnits] = useState(getData('unit') ?? 'Метрическая (цельсий)');
+
+    const {changeSetting } = useSetting();
+    const [currentUnit, changeUnit] = useState('Метрическая (цельсий)');
+
+    useEffect(() => {
+        (async () => {
+            const unit = await getData('unit');
+            changeUnit(unit ?? 'Метрическая (цельсий)');
+        })();
+    }, []);
+
+    const handleChange = (value) => {
+        changeSetting({ unit: value });
+        changeUnit(value);
+        (async () => {
+            await storeData('unit', value);
+        })();
+    };
 
     return (
         <SelectCountry
@@ -24,18 +42,15 @@ const SelectUnits = _props => {
             selectedTextStyle={styles.selectedTextStyle}
             placeholderStyle={styles.placeholderStyle}
             maxHeight={200}
-            value={units}
+            value={currentUnit}
             data={local_data}
             valueField="value"
             labelField="value"
             imageField="image"
-            placeholder={"Выберите единицы измерения.."}
+            placeholder={"Выберите.."}
             searchPlaceholder="Search..."
             onChange={e => {
-                setUnits(e.value);
-                (async () => {
-                    await storeData('unit', e.value);
-                })();
+                handleChange(e.value);
             }}
         />
     );
@@ -64,3 +79,4 @@ const styles = StyleSheet.create({
         marginLeft: 8,
     },
 });
+

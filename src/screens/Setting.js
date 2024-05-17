@@ -5,7 +5,6 @@ import SelectUnits from "../components/DropLists/SelectUnit";
 import SelectAge from "../components/DropLists/SelectAge";
 import theme from "../../assets/theme/setting.png";
 
-// Можно добавить настройки одежды, чтобы какие то шмотки не показывало
 
 export default function Setting({navigation}) {
 
@@ -13,28 +12,28 @@ export default function Setting({navigation}) {
         <SafeAreaView style={styles.container}>
             <Image source={theme} style={styles.img}/>
             <View style={styles.content}>
-                <Text style={{fontSize: 30, color: 'white', marginTop: 15}}>Настройки</Text>
+                <Text style={styles.title}>Настройки</Text>
 
-                <View>
+                <View style={styles.dropList}>
                     <Text style={styles.label}>Пол</Text>
                     <SelectGender/>
                 </View>
 
-                <View>
+                <View style={styles.dropList}>
                     <Text style={styles.label}>Возраст</Text>
                     <SelectAge/>
                 </View>
 
-                <View>
+                <View style={styles.dropList}>
                     <Text style={styles.label}>Единицы измерения</Text>
                     <SelectUnits/>
                 </View>
 
-                <Button
-                    title="Вернуться назад"
-                    onPress={() => navigation.navigate('Home')}
-                />
             </View>
+            <Button
+                title="Вернуться назад"
+                onPress={() => navigation.navigate('Home')}
+            />
         </SafeAreaView>
     )
 }
@@ -43,13 +42,12 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'space-between',
     },
 
     content: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'space-between',
+        // justifyContent: 'space-between',
     },
 
     img: {
@@ -61,5 +59,14 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: 'white',
         fontWeight:'bold'
+    },
+    dropList: {
+        marginBottom: 50
+    },
+    title: {
+        fontSize: 30,
+        color: 'white',
+        marginTop: 35,
+        marginBottom: 50
     }
 })

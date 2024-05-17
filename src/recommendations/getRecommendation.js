@@ -1,61 +1,43 @@
-
-import {getData} from "../asyncStorage/asyncStorage";
 import {listClothes} from "./clother";
 import {getToken} from "../gigaChat/getToken";
 import {getAnswer} from "../gigaChat/getAnswer";
 
 
-// Улучши промпт с помощью нейросети
-
-export async function getRecommendation(currentTemp, weatherConditions, speedWind, degWind, humidity) {
-
-    const gender = await getData('gender') ?? 'Мужской';
-    const age = await getData('age') ?? '18-35';
+export async function getRecommendation(currentTemp, weatherConditions, speedWind, degWind, humidity, gender, age) {
 
     let clothes = "";
 
     listClothes.map(thing => {
-        // if (thing.temp.min <= currentTemp && thing.temp.max >= currentTemp) {
-            // console.log(thing.name);
+        if (thing.temp.min <= currentTemp && thing.temp.max >= currentTemp) {
             clothes += `${thing.name}, `;
-        // }
+        }
     });
 
-    // console.log('clothes', clothes);
+    // Удаляем последнюю запятую и пробел
+    clothes = clothes.slice(0, -2);
 
-    // Сформировать список одежды подходящей по данной погоде
 
-    // этот список можно увеличить и тогда картинки соответственно
+    const prompt = `
+Выбери подходящую одежду из следующего списка: ${clothes}.
+Для погоды со следующими характеристиками:
+- Температура: ${currentTemp}°C
+- Погодные условия: ${weatherConditions}
+- Скорость ветра: ${speedWind} м/ч
+- Направление ветра: ${degWind}°
+- Влажность: ${humidity}%
 
-    // допустим мы сформировали список по погоде чтобы не было совсем абсурда
-    // const listClothes = 'Зимние ботинки, Межсезонные ботинки, Кроссовки, Кеды, Сланцы, ' +
-    //     'Солнцезащитные очки, Зонтик, Перчатки, Варежки, Платок, Шапка, Шарф, Кепка, Шорты, Юбка, Джинсы, ' +
-    //     'Термо штаны, Брюки, Джинсовая куртка, Ветровка, Пальто, Куртка, Пуховик, Пиджак, Кардиган, ' +
-    //     'Топ, Майка, Футболка, Водолазка, Свитер';
+Для человека со следующими характеристиками:
+- Пол: ${gender}
+- Возраст: ${age} лет
+
+Список одежды должен быть таким, чтобы человек не замерз и ему не было жарко. Ответ выведи в формате массива.
+
+Пример ответа: ["Обувь", "Аксессуар", "Куртка", "Штаны", "Нижняя одежда"].`;
+
 
     // Передаем данные gigaChat
-
-    const prompt = `Выбери подходящую одежду из следующего списка: ${clothes}. 
-    Для погоды со следующими характеристика: ' +
-        'температура ${currentTemp} градуса цельсия, 
-        ${weatherConditions},
-        ветер ${speedWind} миль в час, 
-        направление ветра ${degWind} deg,
-        влажность ${humidity}. ' +
-        'Для человека со следующими характеристиками: пол - ${gender}, возраст - ${age} года. 
-        Ответ выведи в формате массива.  // Например, ["Обувь", "Аксуссуар", "Куртка", "Штаны", "Нижняя одежда"].
-        Список одежды должен быть такой, чтобы человек не замерз и ему не было жарко`;
-
-
-    // [Обувь, куртка, штаны, головной убор, нижняя одежда]
-
-    // const token = await getToken();
-    // const answer = await getAnswer((JSON.parse(token)).access_token, prompt);
-    //
-    // return JSON.parse((JSON.parse(answer)).choices[0].message.content);
-
-    // Вывод всех элементов одежды
-    return clothes.split(", ");
-
+    const token = await getToken();
+    const answer = await getAnswer((JSON.parse(token)).access_token, prompt);
+    return JSON.parse((JSON.parse(answer)).choices[0].message.content);
 }
 

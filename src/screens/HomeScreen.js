@@ -4,34 +4,21 @@ import {getWeatherOpen} from "../api/getWeatherOpen";
 import {getNameCity} from "../api/getNameCity";
 import lightTheme from '../../assets/theme/lightTheme.png';
 import darkTheme from '../../assets/theme/darkTheme.png';
-import {SafeAreaView, View, StyleSheet, Image, Button, Text, StatusBar} from "react-native";
+import {SafeAreaView, View, StyleSheet, Image, Text, StatusBar} from "react-native";
 import Search from "../components/Search";
 import Forecast from "../components/Forecast";
-import * as Progress from 'react-native-progress';
 import {Cog6ToothIcon} from "react-native-heroicons/outline";
 import {useQuery} from "react-query";
 import {storeData} from "../asyncStorage/asyncStorage";
 import {getRecommendation} from "../recommendations/getRecommendation";
 import BlockClothes from "../components/BlockClothes";
-import Loading from "../components/loading";
-
-
-
-// React Query используй на все API запросы
-
-// Сделай блок с одеждой
-// подключи функцию подбора одежды
-// в асинхронное хранилище данные из настроек добавь
-// есть выбор единиц измерения, но нет где ты их используешь
-
-// Фон красивый сделай в настройках
-
-// Сделать чтобы можно было убрать вещь
-
-// кнопки сделатть одежду холоднее/теплее
+import LoadingSpin from "../components/loading";
+import {useSetting} from "../context/SettingContext";
 
 
 export default function HomeScreen({navigation}) {
+
+    const {currentSetting, changeSetting} = useSetting();
 
     const [manualCoords, setManualCoords] = useState(undefined);
     const [listClothes, setListClothes] = useState(undefined);
@@ -63,30 +50,33 @@ export default function HomeScreen({navigation}) {
             const icon = weather.weather[0].icon;
             setIsDay(icon[2] === 'd');
 
+            setListClothes(undefined);
+
             //     Получить рекомендации одежды
             (async () => {
                 setListClothes(await getRecommendation(weather.main.temp, weather.weather[0].description, weather.wind.speed,
-                    weather.wind.deg, weather.main.humidity));
-
+                    weather.wind.deg, weather.main.humidity, currentSetting.gender, currentSetting.age));
             })();
         }
     }, [weather]);
 
+    useEffect(()=> {
+        setListClothes(undefined);
+        //     Получить рекомендации одежды
+        (async () => {
+            setListClothes(await getRecommendation(weather.main.temp, weather.weather[0].description, weather.wind.speed,
+                weather.wind.deg, weather.main.humidity, currentSetting.gender, currentSetting.age));
+        })();
+    }, [currentSetting.age, currentSetting.gender])
+
     // Изменение геолокации вручную
     const handleLocation = async (coords) => {
-
         setManualCoords(coords);
         // Записываем полученные координаты в хранилище
         await storeData('coords', JSON.stringify(coords));
-        // Показать загрузку
-
-        // setLoading(true);
-        // // setLocation(coords);
-        // setManualLocation(coords);
     }
 
     useEffect(() => {
-
         if (manualCoords) {
             (async () => {
                 await refetchCity();
@@ -97,21 +87,16 @@ export default function HomeScreen({navigation}) {
     }, [manualCoords]);
 
 
-    // if (isLocationLoading) return <Text style={{marginTop: 100}}>Загрузка локации</Text>
-    // if (isCityLoading) return <Text style={{marginTop: 100}}>Загрузка названия города</Text>
-    // if (isWeatherLoading) return <Text style={{marginTop: 100}}>Загрузка погоды</Text>
-    //
-    // if (errorLocation) return <Text style={{marginTop: 100}}>Не удалось получить локацию</Text>
-    // if (errorWeather) return <Text style={{marginTop: 100}}>Не удалось получить погоду</Text>
-    // if (errorCity) return <Text style={{marginTop: 100}}>Не удалось получить название города</Text>
+    if (errorLocation) return <Text style={{marginTop: 100}}>Не удалось получить локацию</Text>
+    if (errorWeather) return <Text style={{marginTop: 100}}>Не удалось получить погоду</Text>
+    if (errorCity) return <Text style={{marginTop: 100}}>Не удалось получить название города</Text>
 
     return (
         <View style={styles.container}>
-            {/*<StatusBar style={"light"}></StatusBar>*/}
+            <StatusBar style={"light"}></StatusBar>
             <Image source={isDay ? lightTheme : darkTheme} style={styles.img}/>
 
             {
-                // loading
                 (cityName && weather) ?
                     <SafeAreaView>
 
@@ -138,7 +123,7 @@ export default function HomeScreen({navigation}) {
                     </SafeAreaView>
                     :
                     <View style={styles.loading}>
-                        <Loading />
+                        <LoadingSpin/>
                     </View>
             }
         </View>
@@ -148,19 +133,16 @@ export default function HomeScreen({navigation}) {
 const styles = StyleSheet.create({
 
     setting: {
-      // backgroundColor:'pink',
         display: 'flex',
         alignItems: 'flex-end',
         marginRight: 20
     },
 
     forecast: {
-        // backgroundColor:'blue',
         marginBottom: 50,
     },
 
     search: {
-      // backgroundColor: 'green',
         marginBottom: 45,
     },
 
