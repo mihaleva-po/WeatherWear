@@ -1,6 +1,6 @@
 # Мобильное приложение по подбору одежды по погоде
 
-![Демонстрация](https://github.com/mihaleva-po/WeatherWear/assets/gifka.gif)
+![Демонстрация](https://github.com/mihaleva-po/WeatherWear/blob/main/assets/gifka.gif)
 
 ## Описание
 
