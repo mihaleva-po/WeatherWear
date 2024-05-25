@@ -16,7 +16,6 @@ export async function getRecommendation(currentTemp, weatherConditions, speedWin
     // Удаляем последнюю запятую и пробел
     clothes = clothes.slice(0, -2);
 
-
     const prompt = `
 Выбери подходящую одежду из следующего списка: ${clothes}.
 Для погоды со следующими характеристиками:
@@ -32,8 +31,8 @@ export async function getRecommendation(currentTemp, weatherConditions, speedWin
 
 Список одежды должен быть таким, чтобы человек не замерз и ему не было жарко. Ответ выведи в формате массива.
 
-Пример ответа: ["Обувь", "Аксессуар", "Куртка", "Штаны", "Нижняя одежда"].`;
-
+Пример ответа: ["Обувь", "Аксессуар", "Куртка", "Штаны", "Нижняя одежда"]
+Названия одежды должны выбираться из представлено списка и только из него.`;
 
     // Передаем данные gigaChat
     const token = await getToken();

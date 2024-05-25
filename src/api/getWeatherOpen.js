@@ -1,10 +1,7 @@
-
-
 // Обращение к API open weather
 
 import axios from "axios";
 import {ApiOpenWeather} from "../constants/constants";
-
 
 
 // получение текущей погоды

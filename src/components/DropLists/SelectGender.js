@@ -1,9 +1,8 @@
-
-import React, { useState, useEffect } from 'react';
-import { StyleSheet } from 'react-native';
-import { SelectCountry } from 'react-native-element-dropdown';
-import { getData, storeData } from "../../asyncStorage/asyncStorage";
-import { useSetting } from "../../context/SettingContext";
+import React, {useState, useEffect} from 'react';
+import {StyleSheet} from 'react-native';
+import {SelectCountry} from 'react-native-element-dropdown';
+import {getData, storeData} from "../../asyncStorage/asyncStorage";
+import {useSetting} from "../../context/SettingContext";
 
 const local_data = [
     {
@@ -15,7 +14,7 @@ const local_data = [
 ];
 
 const SelectGender = _props => {
-    const {changeSetting } = useSetting();
+    const {changeSetting} = useSetting();
     const [currentGender, changeGender] = useState('Мужской');
 
     useEffect(() => {
@@ -26,7 +25,7 @@ const SelectGender = _props => {
     }, []);
 
     const handleChange = (value) => {
-        changeSetting({ gender: value });
+        changeSetting({gender: value});
         changeGender(value);
         (async () => {
             await storeData('gender', value);

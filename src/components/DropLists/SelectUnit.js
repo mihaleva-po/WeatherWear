@@ -18,7 +18,7 @@ const local_data = [
 
 const SelectUnits = _props => {
 
-    const {changeSetting } = useSetting();
+    const {changeSetting} = useSetting();
     const [currentUnit, changeUnit] = useState('Метрическая (цельсий)');
 
     useEffect(() => {
@@ -29,7 +29,7 @@ const SelectUnits = _props => {
     }, []);
 
     const handleChange = (value) => {
-        changeSetting({ unit: value });
+        changeSetting({unit: value});
         changeUnit(value);
         (async () => {
             await storeData('unit', value);

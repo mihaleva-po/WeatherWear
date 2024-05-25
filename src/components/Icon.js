@@ -1,4 +1,5 @@
 import {View} from "react-native";
+
 import Boots from '../../assets/img/clothes/svg/boots.svg';
 import BootsVesna from '../../assets/img/clothes/svg/boots3.svg';
 import Top from '../../assets/img/clothes/svg/top.svg';

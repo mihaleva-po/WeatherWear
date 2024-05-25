@@ -1,4 +1,3 @@
-
 export const listClothes = [
     {
         name: 'Зимние ботинки',

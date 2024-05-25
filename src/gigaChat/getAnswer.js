@@ -4,19 +4,19 @@ import axios from 'axios';
 export const getAnswer = async (token, prompt) => {
 
     let data = JSON.stringify({
-        "model": "GigaChat-Pro", // ????????????????
+        "model": "GigaChat-preview",
         "messages": [
             {
                 "role": "user",
                 "content": prompt,
             }
         ],
-        "temperature": 1, // ????????????? и параметры ниже что они означают
+        "temperature": 0.1,
         "top_p": 0.1,
         "n": 1,
         "stream": false,
         "max_tokens": 512,
-        "repetition_penalty": 1,
+        "repetition_penalty": 1.1,
         "update_interval": 0
     });
 

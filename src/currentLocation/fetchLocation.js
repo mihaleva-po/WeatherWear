@@ -20,7 +20,7 @@ export const fetchLocation = async () => {
     // иначе берем координаты по умолчанию
     if (!location) {
         // Координаты Москвы
-        location = {latitude:55.755864, longitude: 31.617698};
+        location = {latitude: 55.755864, longitude: 31.617698};
     }
 
     return location;

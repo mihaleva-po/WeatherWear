@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import { StyleSheet } from 'react-native';
-import { SelectCountry } from 'react-native-element-dropdown';
+import {StyleSheet} from 'react-native';
+import {SelectCountry} from 'react-native-element-dropdown';
 import {getData, storeData} from "../../asyncStorage/asyncStorage";
 import {useSetting} from "../../context/SettingContext";
 
@@ -25,7 +25,7 @@ const local_data = [
 
 const SelectAge = _props => {
 
-    const {changeSetting } = useSetting();
+    const {changeSetting} = useSetting();
     const [currentAge, changeAge] = useState('18-35');
 
     useEffect(() => {
@@ -36,7 +36,7 @@ const SelectAge = _props => {
     }, []);
 
     const handleChange = (value) => {
-        changeSetting({ age: value });
+        changeSetting({age: value});
         changeAge(value);
         (async () => {
             await storeData('age', value);

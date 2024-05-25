@@ -8,12 +8,9 @@ const BlockClothes = ({listClothes}) => {
     return (
         <View style={styles.container}>
             <View style={styles.block}>
-                {/*<Text style={styles.title}>Рекомендации по одежде</Text>*/}
-
                 {
                     listClothes
                         ?
-
                         <ScrollView style={styles.listCards} showsVerticalScrollIndicator={false}>
                             <View style={styles.cardsContainer}>
                                 {listClothes.map((thing, i) => (
@@ -21,10 +18,11 @@ const BlockClothes = ({listClothes}) => {
                                 ))}
                             </View>
                         </ScrollView>
-
                         :
                         <View style={{marginTop: 120, height: 240}}>
                             <ActivityIndicator size={'large'}/>
+                            <Text style={{color: 'white', fontSize: 22, marginTop: 15, fontFamily: 'Helvetica Neue'}}>
+                                Загрузка рекомендаций одежды</Text>
                         </View>
                 }
             </View>
@@ -71,17 +69,3 @@ const styles = StyleSheet.create({
         marginBottom: 10
     },
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-

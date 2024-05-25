@@ -1,4 +1,4 @@
-import {Button, View, Text, SafeAreaView, TextInput, StyleSheet, Image} from "react-native";
+import {Button, View, Text, SafeAreaView, StyleSheet, Image} from "react-native";
 import React from "react";
 import SelectGender from "../components/DropLists/SelectGender";
 import SelectUnits from "../components/DropLists/SelectUnit";
@@ -47,7 +47,6 @@ const styles = StyleSheet.create({
     content: {
         flex: 1,
         alignItems: 'center',
-        // justifyContent: 'space-between',
     },
 
     img: {
@@ -58,7 +57,7 @@ const styles = StyleSheet.create({
     label: {
         fontSize: 20,
         color: 'white',
-        fontWeight:'bold'
+        fontWeight: 'bold'
     },
     dropList: {
         marginBottom: 50

@@ -23,7 +23,7 @@ const Search = ({handleLocation}) => {
     }
 
     const handleSearch = (value) => {
-        if (value.length > 2) {
+        if (value.length > 0) {
             fetchLocations(value).then(data => {
                 setLocations(data);
             });
@@ -93,26 +93,33 @@ const styles = StyleSheet.create({
         justifyContent: "flex-end",
         alignItems: "center",
         borderRadius: 50,
+        zIndex: 50,
+
     },
     searchText: {
         paddingLeft: 25,
         flex: 1,
         fontSize: 19,
         color: 'white',
-        paddingBottom: 5
+        paddingBottom: 5,
+        zIndex: 50,
+
     },
     searchButton: {
         backgroundColor: theme.bgWhite(0.3),
         borderRadius: 50,
         padding: 8,
         margin: 20,
+        zIndex: 50,
     },
     listLocations: {
+        marginTop: 40,
         position: "absolute",
         width: '100%',
         backgroundColor: '#ffffff',
         top: 45,
-        borderRadius: 24
+        borderRadius: 24,
+        zIndex: 50,
     },
     choiceLocation: {
         flexDirection: "row",
@@ -120,6 +127,7 @@ const styles = StyleSheet.create({
         padding: 5,
         paddingHorizontal: 23,
         marginBottom: 2,
+        zIndex: 50,
     },
     border: {
         borderBottomColor: 'gray',
@@ -129,6 +137,7 @@ const styles = StyleSheet.create({
         color: 'black',
         fontSize: 25,
         marginLeft: 20,
+        zIndex: 50,
     }
 });
 

@@ -1,5 +1,5 @@
-import React, { createContext, ReactNode, useContext, useState, useEffect } from "react";
-import { getData } from "../asyncStorage/asyncStorage";
+import React, {createContext, ReactNode, useContext, useState, useEffect} from "react";
+import {getData} from "../asyncStorage/asyncStorage";
 
 interface PropsFace {
     gender: string;
@@ -26,7 +26,7 @@ interface SettingProviderProps {
     children: ReactNode;
 }
 
-export const SettingProvider = ({ children }: SettingProviderProps) => {
+export const SettingProvider = ({children}: SettingProviderProps) => {
     const [currentSetting, setSetting] = useState<PropsFace>({
         gender: 'Мужской',
         age: '18-35',
@@ -38,16 +38,16 @@ export const SettingProvider = ({ children }: SettingProviderProps) => {
             const gender = (await getData('gender'))?.toString() ?? 'Мужской';
             const age = (await getData('age'))?.toString() ?? '18-35';
             const unit = (await getData('unit'))?.toString() ?? 'Метрическая (цельсий)';
-            setSetting({ gender, age, unit });
+            setSetting({gender, age, unit});
         })();
     }, []);
 
     const changeSetting = (newSetting: Partial<PropsFace>) => {
-        setSetting(prevSetting => ({ ...prevSetting, ...newSetting }));
+        setSetting(prevSetting => ({...prevSetting, ...newSetting}));
     };
 
     return (
-        <SettingContext.Provider value={{ currentSetting, changeSetting }}>
+        <SettingContext.Provider value={{currentSetting, changeSetting}}>
             {children}
         </SettingContext.Provider>
     );

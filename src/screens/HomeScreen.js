@@ -18,7 +18,7 @@ import {useSetting} from "../context/SettingContext";
 
 export default function HomeScreen({navigation}) {
 
-    const {currentSetting, changeSetting} = useSetting();
+    const {currentSetting} = useSetting();
 
     const [manualCoords, setManualCoords] = useState(undefined);
     const [listClothes, setListClothes] = useState(undefined);
@@ -47,25 +47,25 @@ export default function HomeScreen({navigation}) {
 
     useEffect(() => {
         if (weather) {
-            const icon = weather.weather[0].icon;
+            const icon = weather?.weather[0]?.icon;
             setIsDay(icon[2] === 'd');
 
             setListClothes(undefined);
 
             //     Получить рекомендации одежды
             (async () => {
-                setListClothes(await getRecommendation(weather.main.temp, weather.weather[0].description, weather.wind.speed,
-                    weather.wind.deg, weather.main.humidity, currentSetting.gender, currentSetting.age));
+                setListClothes(await getRecommendation(weather?.main.temp, weather?.weather[0]?.description, weather?.wind.speed,
+                    weather?.wind?.deg, weather?.main?.humidity, currentSetting?.gender, currentSetting?.age));
             })();
         }
     }, [weather]);
 
-    useEffect(()=> {
+    useEffect(() => {
         setListClothes(undefined);
         //     Получить рекомендации одежды
         (async () => {
-            setListClothes(await getRecommendation(weather.main.temp, weather.weather[0].description, weather.wind.speed,
-                weather.wind.deg, weather.main.humidity, currentSetting.gender, currentSetting.age));
+            setListClothes(await getRecommendation(weather?.main.temp, weather?.weather[0]?.description, weather?.wind.speed,
+                weather?.wind?.deg, weather?.main?.humidity, currentSetting?.gender, currentSetting?.age));
         })();
     }, [currentSetting.age, currentSetting.gender])
 
@@ -85,7 +85,6 @@ export default function HomeScreen({navigation}) {
         }
 
     }, [manualCoords]);
-
 
     if (errorLocation) return <Text style={{marginTop: 100}}>Не удалось получить локацию</Text>
     if (errorWeather) return <Text style={{marginTop: 100}}>Не удалось получить погоду</Text>
@@ -140,10 +139,12 @@ const styles = StyleSheet.create({
 
     forecast: {
         marginBottom: 50,
+        zIndex: -1
     },
 
     search: {
         marginBottom: 45,
+        zIndex: 100
     },
 
     blockClothes: {
@@ -168,4 +169,3 @@ const styles = StyleSheet.create({
         marginTop: 250
     }
 });
-

@@ -1,7 +1,6 @@
 import BouncingPreloader from "react-native-bouncing-preloaders";
 import React, {useEffect, useState} from "react";
-import {View, Text, TouchableHighlight, ActivityIndicator} from "react-native";
-import Loading from 'react-native-whc-loading'
+import {View, Text} from "react-native";
 
 const LoadingSpin = () => {
 
@@ -18,23 +17,26 @@ const LoadingSpin = () => {
 
     return (
         <View style={{alignItems: 'center'}}>
-            {/*<BouncingPreloader*/}
-            {/*    icons={[*/}
-            {/*        require('../../assets/img/clothes/png/hat.png'),*/}
-            {/*        require('../../assets/img/clothes/png/hoody.png'),*/}
-            {/*        require('../../assets/img/clothes/png/sneakers-_2_.png'),*/}
-            {/*        require('../../assets/img/clothes/png/jacket.png'),*/}
-            {/*    ]}*/}
-            {/*    leftRotation="-580deg"*/}
-            {/*    rightRotation="360deg"*/}
-            {/*    leftDistance={-180}*/}
-            {/*    rightDistance={-250}*/}
-            {/*    size={100}*/}
-            {/*    speed={1300}*/}
-            {/*/>*/}
-
-            <ActivityIndicator size={'large'}/>
-            <Text style={{color: 'white', fontSize: 22, marginTop: 15, fontFamily:'Helvetica Neue'}}>{texts[currentTextIndex]}</Text>
+            <BouncingPreloader
+                icons={[
+                    require('../../assets/img/clothes/png/hat.png'),
+                    require('../../assets/img/clothes/png/hoody.png'),
+                    require('../../assets/img/clothes/png/sneakers-_2_.png'),
+                    require('../../assets/img/clothes/png/jacket.png'),
+                ]}
+                leftRotation="-580deg"
+                rightRotation="360deg"
+                leftDistance={-180}
+                rightDistance={-250}
+                size={100}
+                speed={1300}
+            />
+            <Text style={{
+                color: 'white',
+                fontSize: 22,
+                marginTop: 15,
+                fontFamily: 'Helvetica Neue'
+            }}>{texts[currentTextIndex]}</Text>
         </View>
     )
 }

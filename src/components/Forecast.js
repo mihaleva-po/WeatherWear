@@ -5,7 +5,7 @@ import {useSetting} from "../context/SettingContext";
 
 const Forecast = ({cityName, temp, description}) => {
 
-    const { currentSetting, changeSetting } = useSetting();
+    const {currentSetting, changeSetting} = useSetting();
 
     return (
         <View>
@@ -21,7 +21,7 @@ const Forecast = ({cityName, temp, description}) => {
                         :
                         (currentSetting.unit === 'Имперская (фаренгейт)')
                             ?
-                            <Text style={styles.degree}>{Math.round(temp) * 9/5 + 32} ℉</Text>
+                            <Text style={styles.degree}>{Math.round(temp) * 9 / 5 + 32} ℉</Text>
                             :
                             <Text style={styles.degree}>{Math.round(temp)} ℃</Text>
                 }

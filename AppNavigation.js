@@ -15,8 +15,8 @@ export default function AppNavigation() {
     return (
         <NavigationContainer>
             <Stack.Navigator>
-                <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }}/>
-                <Stack.Screen name="Setting" component={Setting} options={{ headerShown: false }}/>
+                <Stack.Screen name="Home" component={HomeScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="Setting" component={Setting} options={{headerShown: false}}/>
             </Stack.Navigator>
         </NavigationContainer>
     )
